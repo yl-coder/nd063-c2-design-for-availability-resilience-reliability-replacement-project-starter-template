@@ -1,0 +1,84 @@
+[ec2-user@ip-10-1-11-97 ~]$ mysql -h udacity-secondary.cquimszumhqi.us-west-2.rds.amazonaws.com -u admin -p
+Enter password:
+^C
+[ec2-user@ip-10-1-11-97 ~]$ exit
+logout
+Connection to 3.129.204.91 closed.
+
+You Liang@DESKTOP-0PGBIUV MINGW64 ~
+$ ssh -i /d/Downloads/udacity_secondary.pem ec2-user@52.11.121.232
+load pubkey "/d/Downloads/udacity_secondary.pem": invalid format
+The authenticity of host '52.11.121.232 (52.11.121.232)' can't be established.
+ECDSA key fingerprint is SHA256:tv9QUSV3rAvcJT5C6gaCLWWA+kwFOs5zG2Nk/mwQPnc.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '52.11.121.232' (ECDSA) to the list of known hosts.
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+[ec2-user@ip-10-2-10-128 ~]$ sudo yum install mysql
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Resolving Dependencies
+--> Running transaction check
+---> Package mariadb.x86_64 1:5.5.68-1.amzn2 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package        Arch          Version                   Repository         Size
+================================================================================
+Installing:
+ mariadb        x86_64        1:5.5.68-1.amzn2          amzn2-core        8.8 M
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 8.8 M
+Installed size: 49 M
+Is this ok [y/d/N]: y
+Downloading packages:
+mariadb-5.5.68-1.amzn2.x86_64.rpm                          | 8.8 MB   00:00
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : 1:mariadb-5.5.68-1.amzn2.x86_64                              1/1
+  Verifying  : 1:mariadb-5.5.68-1.amzn2.x86_64                              1/1
+
+Installed:
+  mariadb.x86_64 1:5.5.68-1.amzn2
+
+Complete!
+[ec2-user@ip-10-2-10-128 ~]$ mysql -h udacity-secondary.cquimszumhqi.us-west-2.rds.amazonaws.com -u admin -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.20 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> use main;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MySQL [main]> SELECT * FROM user;
++------+
+| id   |
++------+
+|    1 |
+|    2 |
+|    3 |
+|    4 |
++------+
+4 rows in set (0.00 sec)
+
+MySQL [main]> INSERT user(id) VALUES(5);
+ERROR 1290 (HY000): The MySQL server is running with the --read-only option so it cannot execute this statement
+MySQL [main]>

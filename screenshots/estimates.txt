@@ -1,0 +1,23 @@
+### Minimum RTO for a single AZ outage
+The minimum rto could be only a few seconds as there is a standby instance running on another AZ.
+
+### Minimum RTO for a single region outage
+If it is a region outage, we will need to promote the read replica on the another region to master. This could take around few hours
+
+The steps to take is as follow:
+1) Promote the Read Replica.
+2) Direct database traffic to the new master.
+3) Create a replacement Read Replica.
+
+We can automate all these operations using Amazon Simple Workflow service and calling amazon rds apis to reduce the time needed for this case.
+
+### Minimum RPO for a single AZ outage
+RPO in seconds as there is a warm standby in another AZ
+
+### Minimum RPO for a single region outage
+RPO in minutes as we have a read replica at another region.
+
+
+References
+https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/plan-for-disaster-recovery-dr.html
+https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/plan-for-disaster-recovery-dr.html
